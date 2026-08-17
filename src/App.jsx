@@ -599,6 +599,9 @@ export function Dashboard({ session, onLogout }) {
 
                 {(step.nom === "Frais de dossier" || step.nom === "Frais d'accompagnement") && step.statut === "En cours" && (
                   <div style={{ marginTop: "0.6rem" }}>
+                    <div style={{ fontWeight: 700, color: "#0B1F3F", fontSize: "0.85rem", marginBottom: "0.35rem" }}>
+                      {step.nom === "Frais de dossier" ? "Frais de dossier · 25 000 FCFA" : "Frais d'accompagnement · 50 000 FCFA"}
+                    </div>
                     <p style={{ fontSize: "0.8rem", color: "#5A6478", lineHeight: 1.5, marginBottom: "0.6rem" }}>
                       {step.nom === "Frais de dossier"
                         ? "Ce montant couvre la préparation et l'étude de votre dossier auprès de l'employeur, la première étape concrète vers votre nouvel emploi au Canada."
@@ -622,7 +625,7 @@ export function Dashboard({ session, onLogout }) {
                         fontSize: "0.88rem",
                       }}
                     >
-                      Payer maintenant via Maketou
+                      {step.nom === "Frais de dossier" ? "Payer mes frais de dossier" : "Payer mes frais d'accompagnement"}
                     </a>
                   </div>
                 )}
