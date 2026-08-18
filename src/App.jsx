@@ -1,24 +1,16 @@
 import { useState, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "./supabaseClient";
 import { Mountain, CheckCircle2, Circle, Clock, MessageCircle, Building2, Send, X, Plane, Loader2, Check, CheckCheck } from "lucide-react";
 import CandidatureForm from "./CandidatureForm";
 
 // ---------------------------------------------------------------------------
 // Summit Canada Group — Portail Candidat — Version connectée à Supabase
 // ---------------------------------------------------------------------------
-// Avant de déployer :
-// 1. npm install @supabase/supabase-js
-// 2. Remplace les 2 valeurs ci-dessous par les tiennes (Settings > API sur Supabase)
-// ---------------------------------------------------------------------------
-
-const SUPABASE_URL = "https://ifkbzojpvyxahrhkjjzf.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_5ba4N2NNBn1KZP6tJLEnzw_11W9bCZ4";
 
 // Liens de paiement Maketou.
 const LIEN_MAKETOU_FRAIS_DOSSIER = "https://summit-canada-group.mymaketou.shop/products/frais-de-dossier-60/checkout";
 const LIEN_MAKETOU_FRAIS_ACCOMPAGNEMENT = "https://summit-canada-group.mymaketou.shop/products/frais-daccompagnement-122/checkout";
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 function statutStyle(statut) {
   if (statut === "Validé")

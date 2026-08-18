@@ -1,7 +1,7 @@
 import { StrictMode, useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "./supabaseClient";
 import "./index.css";
 
 import App, { AuthScreen, Dashboard } from "./App.jsx";
@@ -10,10 +10,6 @@ import AccueilPage from "./AccueilPage.jsx";
 import AProposPage from "./AProposPage.jsx";
 import TemoignagesPage from "./TemoignagesPage.jsx";
 import PaiementConfirmePage from "./PaiementConfirmePage.jsx";
-
-const SUPABASE_URL = "https://ifkbzojpvyxahrhkjjzf.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_5ba4N2NNBn1KZP6tJLEnzw_11W9bCZ4";
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 function useSession() {
   const [session, setSession] = useState(null);

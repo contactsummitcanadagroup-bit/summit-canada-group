@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "./supabaseClient";
 import { Mountain, Loader2, CheckCircle2, LogOut, Users, Building2, Upload, MessageCircle, Send, Star, Check, CheckCheck } from "lucide-react";
-
-const SUPABASE_URL = "https://ifkbzojpvyxahrhkjjzf.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_5ba4N2NNBn1KZP6tJLEnzw_11W9bCZ4";
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const ADMIN_EMAIL = "contact.summitcanadagroup@gmail.com";
 

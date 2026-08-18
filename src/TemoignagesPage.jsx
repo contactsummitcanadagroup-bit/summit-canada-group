@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "./supabaseClient";
 import { Mountain, ArrowRight, MessageCircle, Loader2 } from "lucide-react";
-
-const SUPABASE_URL = "https://ifkbzojpvyxahrhkjjzf.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_5ba4N2NNBn1KZP6tJLEnzw_11W9bCZ4";
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ---------------------------------------------------------------------------
 // Summit Canada Group — Page Témoignages
