@@ -23,24 +23,41 @@ function statutStyle(statut) {
 // ---------------------------------------------------------------------------
 // Écran de connexion / inscription
 // ---------------------------------------------------------------------------
+function traduireErreur(message) {
+  const m = message.toLowerCase();
+  if (m.includes("already registered") || m.includes("already exists")) return "Un compte existe déjà avec cette adresse email.";
+  if (m.includes("invalid login") || m.includes("invalid credentials")) return "Email ou mot de passe incorrect.";
+  if (m.includes("password") && m.includes("6")) return "Le mot de passe doit contenir au moins 6 caractères.";
+  if (m.includes("invalid email") || m.includes("unable to validate")) return "Adresse email invalide.";
+  if (m.includes("rate limit")) return "Trop de tentatives. Merci de patienter quelques instants avant de réessayer.";
+  if (m.includes("network") || m.includes("fetch")) return "Problème de connexion. Vérifiez votre connexion internet.";
+  return "Une erreur est survenue. Merci de réessayer.";
+}
+
 export function AuthScreen() {
   const [mode, setMode] = useState("login"); // "login" | "signup"
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess(false);
     const fn =
       mode === "login"
         ? supabase.auth.signInWithPassword({ email, password })
         : supabase.auth.signUp({ email, password });
     const { error } = await fn;
     setLoading(false);
-    if (error) setError(error.message);
+    if (error) {
+      setError(traduireErreur(error.message));
+      return;
+    }
+    setSuccess(true);
   }
 
   return (
@@ -141,6 +158,12 @@ export function AuthScreen() {
           />
 
           {error && <div style={{ color: "#C41E3A", fontSize: "0.8rem" }}>{error}</div>}
+          {success && (
+            <div style={{ color: "#2F7A4D", fontSize: "0.8rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+              <CheckCircle2 size={14} />
+              {mode === "login" ? "Connexion réussie ! Redirection..." : "Inscription réussie ! Redirection vers votre espace..."}
+            </div>
+          )}
 
           <button
             type="submit"
