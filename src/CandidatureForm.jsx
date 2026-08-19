@@ -239,7 +239,7 @@ export default function CandidatureForm({ candidatId, onSubmitted }) {
             onChange={(e) => update("consentement_paiement", e.target.checked)}
             style={{ marginTop: "0.15rem" }}
           />
-          Je comprends et j'accepte de payer les frais de dossier et d'accompagnement dans le cadre de ce processus.
+          Je comprends que la constitution de mon dossier nécessite un investissement financier et je suis prêt(e) à y contribuer pour concrétiser mon projet au Canada.
         </label>
 
         {error && <div style={{ color: "#C41E3A", fontSize: "0.82rem" }}>{error}</div>}

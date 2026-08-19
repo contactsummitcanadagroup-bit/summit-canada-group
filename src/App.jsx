@@ -564,7 +564,9 @@ export function Dashboard({ session, onLogout }) {
                       padding: "0.55rem 0.8rem",
                     }}
                   >
-                    Votre candidature est en cours de vérification par notre équipe.
+                    Votre candidature est en cours de vérification par notre équipe. Une fois validée, nous
+                    procéderons à la recherche d'un employeur prêt à couvrir les frais de votre voyage. N'hésitez
+                    pas à nous contacter pour toute question ou préoccupation.
                   </div>
                 )}
 

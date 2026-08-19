@@ -10,6 +10,23 @@ import AccueilPage from "./AccueilPage.jsx";
 import AProposPage from "./AProposPage.jsx";
 import TemoignagesPage from "./TemoignagesPage.jsx";
 import PaiementConfirmePage from "./PaiementConfirmePage.jsx";
+import ResetPasswordPage from "./ResetPasswordPage.jsx";
+import { useNavigate } from "react-router-dom";
+
+// Détecte un lien de récupération de mot de passe, peu importe la page d'atterrissage,
+// et redirige automatiquement vers l'écran de réinitialisation.
+function RecoveryWatcher() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const { data: listener } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "PASSWORD_RECOVERY") {
+        navigate("/reset-password");
+      }
+    });
+    return () => listener.subscription.unsubscribe();
+  }, [navigate]);
+  return null;
+}
 
 function useSession() {
   const [session, setSession] = useState(null);
@@ -51,6 +68,7 @@ function TemoignagesRoute() {
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
+      <RecoveryWatcher />
       <Routes>
         <Route path="/" element={<RootRoute />} />
         <Route path="/apropos" element={<AProposRoute />} />
@@ -58,6 +76,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/inscription" element={<App />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/paiement-confirme" element={<PaiementConfirmePage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
