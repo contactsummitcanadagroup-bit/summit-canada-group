@@ -369,6 +369,7 @@ function CandidatsList() {
   const [updatingId, setUpdatingId] = useState(null);
   const [employeurFormFor, setEmployeurFormFor] = useState(null);
   const [messagesFor, setMessagesFor] = useState(null);
+  const [recherche, setRecherche] = useState("");
 
   useEffect(() => {
     load();
@@ -399,7 +400,7 @@ function CandidatsList() {
     const { data } = await supabase
       .from("candidats")
       .select(
-        "id, nom, prenom, email, candidatures(poste_vise), suivi_candidat(id, statut, etape_id, etapes_process(nom_etape, ordre)), messages(id, expediteur, lu)"
+        "id, nom, prenom, email, created_at, candidatures(poste_vise), suivi_candidat(id, statut, etape_id, etapes_process(nom_etape, ordre)), messages(id, expediteur, lu)"
       )
       .order("id", { ascending: false });
 
@@ -427,17 +428,45 @@ function CandidatsList() {
     );
   }
 
+  const candidatsFiltres = candidats.filter((c) => c.email.toLowerCase().includes(recherche.trim().toLowerCase()));
+
+  function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+  }
+
   return (
     <div style={{ maxWidth: 980, margin: "0 auto", padding: "1.5rem" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "1.25rem" }}>
         <Users size={20} color="#0B1F3F" />
         <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "1.25rem", color: "#0B1F3F", margin: 0 }}>
-          Candidats ({candidats.length})
+          Candidats ({candidatsFiltres.length})
         </h1>
       </div>
 
+      <input
+        type="text"
+        placeholder="Rechercher par adresse email..."
+        value={recherche}
+        onChange={(e) => setRecherche(e.target.value)}
+        style={{
+          width: "100%",
+          border: "1px solid #E4E0D6",
+          borderRadius: 9,
+          padding: "0.65rem 0.9rem",
+          fontSize: "0.85rem",
+          marginBottom: "1.1rem",
+          background: "#FFFFFF",
+        }}
+      />
+
       <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-        {candidats.map((c) => {
+        {candidatsFiltres.length === 0 && (
+          <div style={{ textAlign: "center", color: "#8A8579", fontSize: "0.85rem", padding: "1.5rem" }}>
+            Aucun candidat ne correspond à cette recherche.
+          </div>
+        )}
+        {candidatsFiltres.map((c) => {
           const step = currentStep(c);
           const nomComplet = [c.prenom, c.nom].filter(Boolean).join(" ") || c.email;
           const poste = c.candidatures?.[0]?.poste_vise;
@@ -467,6 +496,9 @@ function CandidatsList() {
                   <div style={{ fontWeight: 700, color: "#0B1F3F", fontSize: "0.92rem" }}>{nomComplet}</div>
                   <div style={{ fontSize: "0.78rem", color: "#5A6478" }}>
                     {poste ? `Poste visé : ${poste}` : "Candidature non soumise"}
+                  </div>
+                  <div style={{ fontSize: "0.7rem", color: "#8A8579", marginTop: "0.15rem" }}>
+                    Inscrit le {formatDate(c.created_at)}
                   </div>
                 </div>
 
