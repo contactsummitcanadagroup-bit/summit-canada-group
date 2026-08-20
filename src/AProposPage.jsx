@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mountain, Compass, HeartHandshake, ShieldCheck, ArrowRight } from "lucide-react";
+import { Mountain, Compass, HeartHandshake, ShieldCheck, ArrowRight, Users2, FileCheck, FileText, Plane } from "lucide-react";
 
 // ---------------------------------------------------------------------------
 // Summit Canada Group — Page À propos
@@ -107,6 +107,114 @@ export default function AProposPage({ isLoggedIn = false }) {
         >
           Chaque sommet se gravit mieux <span style={{ color: "#C9A961" }}>accompagné</span>
         </h1>
+      </section>
+
+      {/* ---------------- Qui sommes-nous ---------------- */}
+      <section style={{ padding: "3.25rem 1.5rem 0" }}>
+        <div style={{ maxWidth: 640, margin: "0 auto" }}>
+          <div style={{ fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#C9A961", marginBottom: "0.6rem" }}>
+            Qui sommes-nous
+          </div>
+          <p style={{ fontSize: "1rem", lineHeight: 1.75, color: "#3A4356" }}>
+            Summit Canada Group est une structure spécialisée dans la mise en relation entre des travailleurs
+            africains qualifiés et des employeurs canadiens prêts à financer leur voyage.
+          </p>
+        </div>
+      </section>
+
+      {/* ---------------- Notre mission ---------------- */}
+      <section style={{ padding: "2.25rem 1.5rem 3.25rem" }}>
+        <div style={{ maxWidth: 640, margin: "0 auto" }}>
+          <div style={{ fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#C9A961", marginBottom: "0.6rem" }}>
+            Notre mission
+          </div>
+          <p style={{ fontSize: "1rem", lineHeight: 1.75, color: "#3A4356" }}>
+            Vous aider à partir au Canada sans que l'argent du voyage soit un obstacle. Chez nous, c'est votre
+            employeur canadien qui paie votre billet d'avion, et selon les employeurs, le logement et l'installation
+            peuvent aussi être pris en charge. Vous ne payez que les frais de création de dossier et
+            d'accompagnement, rien de plus.
+          </p>
+        </div>
+      </section>
+
+      {/* ---------------- Comment se passe le processus ---------------- */}
+      <section style={{ background: "#F0ECDF", padding: "3.5rem 1.5rem" }}>
+        <div style={{ maxWidth: 920, margin: "0 auto" }}>
+          <h2
+            style={{
+              fontFamily: "'Playfair Display', Georgia, serif",
+              fontSize: "1.4rem",
+              color: "#0B1F3F",
+              textAlign: "center",
+              marginBottom: "2.25rem",
+            }}
+          >
+            Comment se passe le processus
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem" }}>
+            {[
+              {
+                n: "01",
+                icon: FileCheck,
+                titre: "Analyse de votre candidature",
+                texte: "Notre équipe étudie votre profil, vos compétences et votre expérience. Réponse sous 24 à 48h.",
+              },
+              {
+                n: "02",
+                icon: Users2,
+                titre: "Recherche d'un employeur",
+                texte: "Si votre profil est retenu, nous cherchons l'employeur canadien qui correspond à votre métier et accepte de financer votre voyage.",
+              },
+              {
+                n: "03",
+                icon: FileText,
+                titre: "Création de votre dossier",
+                texte: "Une fois l'employeur trouvé, nous vous accompagnons pour le visa, le permis de travail, le contrat et le billet d'avion.",
+              },
+              {
+                n: "04",
+                icon: Plane,
+                titre: "Départ au Canada",
+                texte: "Votre billet est payé, votre employeur vous attend. Vous partez en toute sécurité.",
+              },
+            ].map((e) => {
+              const Icon = e.icon;
+              return (
+                <div
+                  key={e.n}
+                  style={{
+                    background: "#FFFFFF",
+                    border: "1px solid #EFEAD9",
+                    borderRadius: 12,
+                    padding: "1.5rem 1.25rem",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.9rem" }}>
+                    <div
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: "50%",
+                        background: "#0B1F3F",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Icon size={18} color="#C9A961" />
+                    </div>
+                    <span style={{ fontSize: "0.68rem", color: "#C9A961", fontWeight: 700, letterSpacing: "0.06em" }}>
+                      ÉTAPE {e.n}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: "0.92rem", fontWeight: 700, color: "#1B2431", marginBottom: "0.4rem" }}>{e.titre}</div>
+                  <div style={{ fontSize: "0.82rem", color: "#5A6478", lineHeight: 1.55 }}>{e.texte}</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </section>
 
       {/* ---------------- Le constat ---------------- */}
