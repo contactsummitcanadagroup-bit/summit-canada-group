@@ -6,7 +6,7 @@ import { Mountain, Compass, HeartHandshake, ShieldCheck, ArrowRight } from "luci
 // Continuité de palette et du motif d'ascension
 // ---------------------------------------------------------------------------
 
-export default function AProposPage() {
+export default function AProposPage({ isLoggedIn = false }) {
   return (
     <div
       style={{
@@ -43,27 +43,35 @@ export default function AProposPage() {
           </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-          <Link to="/" style={{ color: "#C7D0E0", fontSize: "0.85rem", textDecoration: "none" }}>
-            Accueil
-          </Link>
-          <Link to="/temoignages" style={{ color: "#C7D0E0", fontSize: "0.85rem", textDecoration: "none" }}>
-            Témoignages
-          </Link>
-          <Link
-            to="/inscription"
-            style={{
-              background: "transparent",
-              border: "1px solid #C9A961",
-              color: "#C9A961",
-              fontSize: "0.8rem",
-              fontWeight: 600,
-              padding: "0.45rem 0.95rem",
-              borderRadius: 999,
-              textDecoration: "none",
-            }}
-          >
-            Connexion
-          </Link>
+          {isLoggedIn ? (
+            <Link to="/" style={{ color: "#C7D0E0", fontSize: "0.85rem", textDecoration: "none" }}>
+              Mon suivi
+            </Link>
+          ) : (
+            <>
+              <Link to="/" style={{ color: "#C7D0E0", fontSize: "0.85rem", textDecoration: "none" }}>
+                Accueil
+              </Link>
+              <Link to="/temoignages" style={{ color: "#C7D0E0", fontSize: "0.85rem", textDecoration: "none" }}>
+                Témoignages
+              </Link>
+              <Link
+                to="/inscription"
+                style={{
+                  background: "transparent",
+                  border: "1px solid #C9A961",
+                  color: "#C9A961",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  padding: "0.45rem 0.95rem",
+                  borderRadius: 999,
+                  textDecoration: "none",
+                }}
+              >
+                Connexion
+              </Link>
+            </>
+          )}
         </div>
       </nav>
 
@@ -175,25 +183,27 @@ export default function AProposPage() {
         >
           Votre dossier commence par une candidature
         </h2>
-        <Link
-          to="/inscription"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.6rem",
-            background: "#C9A961",
-            color: "#0B1F3F",
-            fontWeight: 700,
-            fontSize: "0.95rem",
-            padding: "0.9rem 1.8rem",
-            borderRadius: 999,
-            textDecoration: "none",
-            marginTop: "0.75rem",
-          }}
-        >
-          Déposer ma candidature
-          <ArrowRight size={17} />
-        </Link>
+        {!isLoggedIn && (
+          <Link
+            to="/inscription"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.6rem",
+              background: "#C9A961",
+              color: "#0B1F3F",
+              fontWeight: 700,
+              fontSize: "0.95rem",
+              padding: "0.9rem 1.8rem",
+              borderRadius: 999,
+              textDecoration: "none",
+              marginTop: "0.75rem",
+            }}
+          >
+            Déposer ma candidature
+            <ArrowRight size={17} />
+          </Link>
+        )}
       </section>
 
       {/* ---------------- Footer ---------------- */}

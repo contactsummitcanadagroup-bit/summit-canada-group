@@ -22,67 +22,67 @@ const ETAPES = [
   {
     n: "01",
     icon: FileCheck,
-    titre: "Tu déposes ta candidature",
-    texte: "Tu remplis le formulaire. Notre équipe analyse ton profil et te recontacte.",
+    titre: "Vous déposez votre candidature",
+    texte: "Vous remplissez le formulaire. Notre équipe analyse votre profil et vous recontacte.",
   },
   {
     n: "02",
     icon: Users2,
-    titre: "On te trouve l'employeur",
-    texte: "On identifie un employeur canadien prêt à financer ton voyage et adapté à ton profil.",
+    titre: "On vous trouve l'employeur",
+    texte: "On identifie un employeur canadien prêt à financer votre voyage et adapté à votre profil.",
   },
   {
     n: "03",
     icon: FileText,
-    titre: "On prépare ton dossier",
-    texte: "Visa, permis de travail, contrat signé, billets, tout est géré avec toi, pas à ta place.",
+    titre: "On prépare votre dossier",
+    texte: "Visa, permis de travail, contrat signé, billets, tout est géré avec vous, pas à votre place.",
   },
   {
     n: "04",
     icon: Plane,
-    titre: "Tu pars au Canada",
-    texte: "Billet payé, employeur qui t'attend. Tu arrives, tu commences.",
+    titre: "Vous partez au Canada",
+    texte: "Billet payé, employeur qui vous attend. Vous arrivez, vous commencez.",
   },
 ];
 
 const BENEFICES = [
-  { icon: Plane, titre: "Voyage financé", texte: "Ton employeur couvre l'intégralité du billet. Tu n'avances rien." },
-  { icon: Home, titre: "Logement facilité", texte: "Selon l'employeur, un logement est prévu dès ton arrivée." },
-  { icon: Briefcase, titre: "Contrat signé avant le départ", texte: "Tu pars avec un contrat en main. Ton employeur t'a choisi." },
-  { icon: FileText, titre: "Dossier complet préparé", texte: "Visa, permis, documents officiels, préparés avec toi, étape par étape." },
-  { icon: ShieldCheck, titre: "Processus transparent", texte: "Chaque étape est visible depuis ton espace. Zéro zone d'ombre." },
-  { icon: HeartHandshake, titre: "Accompagnement complet", texte: "Notre équipe reste disponible avant, pendant et après ton départ." },
+  { icon: Plane, titre: "Voyage financé", texte: "Votre employeur couvre l'intégralité du billet. Vous n'avancez rien." },
+  { icon: Home, titre: "Logement facilité", texte: "Selon l'employeur, un logement est prévu dès votre arrivée." },
+  { icon: Briefcase, titre: "Contrat signé avant le départ", texte: "Vous partez avec un contrat en main. Votre employeur vous a choisi." },
+  { icon: FileText, titre: "Dossier complet préparé", texte: "Visa, permis, documents officiels, préparés avec vous, étape par étape." },
+  { icon: ShieldCheck, titre: "Processus transparent", texte: "Chaque étape est visible depuis votre espace. Zéro zone d'ombre." },
+  { icon: HeartHandshake, titre: "Accompagnement complet", texte: "Notre équipe reste disponible avant, pendant et après votre départ." },
 ];
 
 const CRITERES = [
-  "Tu veux partir au Canada mais l'argent du voyage te bloque",
-  "Tu as une expérience professionnelle dans un domaine concret",
-  "Tu as peur d'être arnaqué par une fausse agence",
-  "Tu veux un processus transparent avec un suivi sérieux",
-  "Tu parles français ou anglais, même à un niveau de base",
-  "Tu es prêt à t'investir jusqu'au bout du processus",
+  "Vous voulez partir au Canada mais l'argent du voyage vous bloque",
+  "Vous avez une expérience professionnelle dans un domaine concret",
+  "Vous avez peur d'être arnaqué par une fausse agence",
+  "Vous voulez un processus transparent avec un suivi sérieux",
+  "Vous parlez français ou anglais, même à un niveau de base",
+  "Vous êtes prêt(e) à vous investir jusqu'au bout du processus",
 ];
 
 const FAQ = [
   {
     q: "Est-ce qu'il y a des frais cachés ?",
-    r: "Non. Le coût total est de 75 000 FCFA, réparti entre les frais de dossier et l'accompagnement. Ce montant t'est communiqué avant toute démarche. Le billet d'avion est pris en charge par ton employeur, le logement selon les employeurs.",
+    r: "Vous ne payez rien tant que nous n'avons pas trouvé un employeur prêt à couvrir vos frais de voyage. Une fois l'employeur trouvé, le coût total est de 75 000 FCFA, réparti entre les frais de dossier et l'accompagnement, communiqué avant toute démarche. Le billet d'avion est pris en charge par votre employeur, le logement selon les employeurs.",
   },
   {
     q: "Comment je sais que ce n'est pas une arnaque ?",
-    r: "Contrairement à une fausse agence, on ne te demande jamais une grosse somme d'un coup. Tu suis chaque étape de ton dossier en temps réel depuis ton espace personnel.",
+    r: "Contrairement à une fausse agence, on ne vous demande jamais une grosse somme d'un coup. Vous suivez chaque étape de votre dossier en temps réel depuis votre espace personnel.",
   },
   {
     q: "Et si je n'ai pas de diplôme universitaire ?",
-    r: "Pas de problème. Le Canada recrute dans des secteurs sans diplôme : construction, transport, agriculture, restauration. Ce qui compte, c'est ton expérience.",
+    r: "Pas de problème. Le Canada recrute dans des secteurs sans diplôme : construction, transport, agriculture, restauration. Ce qui compte, c'est votre expérience.",
   },
   {
     q: "Est-ce que je dois parler anglais ?",
-    r: "Pas forcément. Si tu parles français, le Québec est une excellente destination. Pour les provinces anglophones, un niveau de base suffit selon le poste.",
+    r: "Pas forcément. Si vous parlez français, le Québec est une excellente destination. Pour les provinces anglophones, un niveau de base suffit selon le poste.",
   },
   {
     q: "Combien de temps prend le processus ?",
-    r: "En moyenne 3 à 6 mois selon ton profil et ton dossier.",
+    r: "En moyenne 3 à 6 mois selon votre profil et votre dossier.",
   },
 ];
 
@@ -207,9 +207,9 @@ export default function AccueilPage() {
               margin: "0 0 1.1rem",
             }}
           >
-            Ton employeur canadien
+            Votre employeur canadien
             <br />
-            <span style={{ color: "#C9A961" }}>paie ton voyage.</span>
+            <span style={{ color: "#C9A961" }}>paie votre voyage.</span>
           </h1>
           <p
             style={{
@@ -220,8 +220,8 @@ export default function AccueilPage() {
               margin: "0 auto 2.25rem",
             }}
           >
-            Le billet d'avion est couvert par ton employeur. Tu paies uniquement les frais de dossier. On t'accompagne
-            de A à Z, du formulaire jusqu'à ton arrivée.
+            Vous ne payez rien tant que nous n'avons pas trouvé l'employeur qui financera votre billet d'avion. On
+            vous accompagne de A à Z, du formulaire jusqu'à votre arrivée.
           </p>
           <Link
             to="/inscription"
@@ -306,15 +306,15 @@ export default function AccueilPage() {
         </div>
       </section>
 
-      {/* ---------------- Ce que tu obtiens ---------------- */}
+      {/* ---------------- Ce que vous obtenez ---------------- */}
       <section style={{ background: "#0B1F3F", padding: "3.5rem 1.5rem" }}>
         <div style={{ maxWidth: 960, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: "2.25rem" }}>
             <div style={{ fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#C9A961", marginBottom: "0.5rem" }}>
-              Ce que tu obtiens
+              Ce que vous obtenez
             </div>
             <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "1.6rem", color: "#F7F5EF" }}>
-              Tout ce dont tu as besoin pour réussir
+              Tout ce dont vous avez besoin pour réussir
             </h2>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: "1.25rem" }}>
@@ -332,6 +332,57 @@ export default function AccueilPage() {
         </div>
       </section>
 
+      {/* ---------------- Ce que vous payez ---------------- */}
+      <section style={{ padding: "3.5rem 1.5rem" }}>
+        <div
+          style={{
+            maxWidth: 640,
+            margin: "0 auto",
+            background: "#0B1F3F",
+            border: "1px solid rgba(201,169,97,0.25)",
+            borderRadius: 16,
+            padding: "2rem 1.75rem",
+          }}
+        >
+          <div style={{ fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#C9A961", marginBottom: "0.75rem", textAlign: "center" }}>
+            Ce que vous payez, en toute transparence
+          </div>
+          <p
+            style={{
+              color: "#0B1F3F",
+              background: "#C9A961",
+              borderRadius: 10,
+              padding: "0.85rem 1rem",
+              fontSize: "0.86rem",
+              fontWeight: 700,
+              lineHeight: 1.5,
+              textAlign: "center",
+              marginBottom: "1.3rem",
+            }}
+          >
+            Vous ne payez rien tant que nous n'avons pas trouvé un employeur prêt à couvrir votre voyage.
+          </p>
+          <p style={{ color: "#E4E9F2", fontSize: "0.9rem", lineHeight: 1.6, marginBottom: "1.1rem", textAlign: "center" }}>
+            Une fois l'employeur trouvé, le billet d'avion est intégralement financé par lui. Deux frais interviennent
+            alors pour finaliser votre dossier :
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem", marginBottom: "1.1rem" }}>
+            <div style={{ fontSize: "0.86rem", color: "#C7D0E0", lineHeight: 1.55 }}>
+              💼 <strong style={{ color: "#F7F5EF" }}>Frais de dossier · 25 000 FCFA</strong> — couvre la
+              préparation et l'étude de votre dossier auprès de l'employeur, jusqu'à l'obtention de votre contrat de
+              travail.
+            </div>
+            <div style={{ fontSize: "0.86rem", color: "#C7D0E0", lineHeight: 1.55 }}>
+              🛂 <strong style={{ color: "#F7F5EF" }}>Frais d'accompagnement · 50 000 FCFA</strong> — couvre le
+              reste du parcours : visa, permis de travail et organisation du voyage.
+            </div>
+          </div>
+          <p style={{ color: "#9CA8C4", fontSize: "0.82rem", margin: 0, textAlign: "center" }}>
+            Soit 75 000 FCFA au total, jamais avant qu'un employeur ne soit confirmé pour vous.
+          </p>
+        </div>
+      </section>
+
       {/* ---------------- Pour qui ---------------- */}
       <section style={{ padding: "3.5rem 1.5rem" }}>
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
@@ -340,7 +391,7 @@ export default function AccueilPage() {
               Pour qui
             </div>
             <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "1.6rem", color: "#0B1F3F" }}>
-              Ce programme est fait pour toi si...
+              Ce programme est fait pour vous si...
             </h2>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "0.9rem" }}>
@@ -375,7 +426,7 @@ export default function AccueilPage() {
       <section style={{ background: "#F0ECDF", padding: "3rem 1.5rem", textAlign: "center" }}>
         <Eye size={24} color="#0B1F3F" style={{ marginBottom: "0.9rem" }} />
         <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "1.35rem", color: "#0B1F3F", marginBottom: "0.75rem" }}>
-          Ils avaient les mêmes doutes que toi
+          Ils avaient les mêmes doutes que vous
         </h2>
         <p style={{ fontSize: "0.88rem", color: "#5A6478", marginBottom: "1.5rem", maxWidth: 480, marginLeft: "auto", marginRight: "auto" }}>
           Des candidats accompagnés jusqu'à leur arrivée au Canada racontent leur parcours.
@@ -407,7 +458,7 @@ export default function AccueilPage() {
               Questions fréquentes
             </div>
             <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "1.6rem", color: "#0B1F3F" }}>
-              On répond à ce que tu te demandes
+              On répond à ce que vous vous demandez
             </h2>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem" }}>
@@ -428,10 +479,10 @@ export default function AccueilPage() {
             marginBottom: "0.75rem",
           }}
         >
-          Commence ton voyage au Canada aujourd'hui
+          Commencez votre voyage au Canada aujourd'hui
         </h2>
         <p style={{ color: "#5A6478", marginBottom: "1.75rem" }}>
-          Le dépôt de ta candidature prend quelques minutes.
+          Le dépôt de votre candidature prend quelques minutes.
         </p>
         <Link
           to="/inscription"

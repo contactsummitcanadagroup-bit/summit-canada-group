@@ -51,11 +51,11 @@ function RootRoute() {
   return session ? <Dashboard session={session} onLogout={() => supabase.auth.signOut()} /> : <AccueilPage />;
 }
 
-// "/apropos" : réservé aux visiteurs non connectés, redirige sinon
+// "/apropos" : accessible à tous, adapte juste la nav/CTA selon la connexion
 function AProposRoute() {
   const { session, loading } = useSession();
   if (loading) return null;
-  return session ? <Navigate to="/" replace /> : <AProposPage />;
+  return <AProposPage isLoggedIn={!!session} />;
 }
 
 // "/temoignages" : accessible à tous, adapte juste la nav/CTA selon la connexion

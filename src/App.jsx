@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "./supabaseClient";
 import { Mountain, CheckCircle2, Circle, Clock, MessageCircle, Building2, Send, X, Plane, Loader2, Check, CheckCheck } from "lucide-react";
 import CandidatureForm from "./CandidatureForm";
@@ -402,20 +403,28 @@ export function Dashboard({ session, onLogout }) {
               </div>
             </div>
           </div>
-          <button
-            onClick={onLogout}
-            style={{
-              background: "#16305C",
-              border: "1px solid #2A4066",
-              color: "#F7F5EF",
-              fontSize: "0.75rem",
-              padding: "0.4rem 0.8rem",
-              borderRadius: 999,
-              cursor: "pointer",
-            }}
-          >
-            Déconnexion
-          </button>
+          <div style={{ display: "flex", alignItems: "center", gap: "1.1rem" }}>
+            <Link to="/apropos" style={{ color: "#C7D0E0", fontSize: "0.78rem", textDecoration: "none" }}>
+              À propos
+            </Link>
+            <Link to="/temoignages" style={{ color: "#C7D0E0", fontSize: "0.78rem", textDecoration: "none" }}>
+              Témoignages
+            </Link>
+            <button
+              onClick={onLogout}
+              style={{
+                background: "#16305C",
+                border: "1px solid #2A4066",
+                color: "#F7F5EF",
+                fontSize: "0.75rem",
+                padding: "0.4rem 0.8rem",
+                borderRadius: 999,
+                cursor: "pointer",
+              }}
+            >
+              Déconnexion
+            </button>
+          </div>
         </div>
       </header>
 
