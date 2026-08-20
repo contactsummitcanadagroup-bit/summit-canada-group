@@ -131,6 +131,7 @@ function EmployeurForm({ candidatId, onSaved, onCancel }) {
   const [prenom, setPrenom] = useState("");
   const [domaine, setDomaine] = useState("");
   const [photoFile, setPhotoFile] = useState(null);
+  const [docFile, setDocFile] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -152,9 +153,22 @@ function EmployeurForm({ candidatId, onSaved, onCancel }) {
       photo_url = publicUrlData.publicUrl;
     }
 
+    let doc_url = null;
+    if (docFile) {
+      const docPath = `employeurs-docs/${candidatId}-${Date.now()}-${docFile.name}`;
+      const { error: docUploadError } = await supabase.storage.from("photos").upload(docPath, docFile);
+      if (docUploadError) {
+        setError("Erreur lors de l'upload du document.");
+        setSaving(false);
+        return;
+      }
+      const { data: docUrlData } = supabase.storage.from("photos").getPublicUrl(docPath);
+      doc_url = docUrlData.publicUrl;
+    }
+
     const { error: insertError } = await supabase
       .from("employeurs")
-      .insert({ candidat_id: candidatId, nom, prenom, domaine, photo_url });
+      .insert({ candidat_id: candidatId, nom, prenom, domaine, photo_url, doc_url });
 
     setSaving(false);
     if (insertError) {
@@ -205,6 +219,11 @@ function EmployeurForm({ candidatId, onSaved, onCancel }) {
       <label style={{ fontSize: "0.78rem", color: "#5A6478", display: "flex", alignItems: "center", gap: "0.5rem" }}>
         <Upload size={14} />
         <input type="file" accept="image/*" onChange={(e) => setPhotoFile(e.target.files?.[0] || null)} style={{ fontSize: "0.78rem" }} />
+      </label>
+      <label style={{ fontSize: "0.78rem", color: "#5A6478", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        <Upload size={14} />
+        <input type="file" accept="application/pdf" onChange={(e) => setDocFile(e.target.files?.[0] || null)} style={{ fontSize: "0.78rem" }} />
+        <span style={{ fontSize: "0.72rem", color: "#8A8579" }}>Document employeur (PDF, optionnel)</span>
       </label>
 
       {error && <div style={{ color: "#C41E3A", fontSize: "0.78rem" }}>{error}</div>}
@@ -494,7 +513,8 @@ function CandidatsList() {
               >
                 <div>
                   <div style={{ fontWeight: 700, color: "#0B1F3F", fontSize: "0.92rem" }}>{nomComplet}</div>
-                  <div style={{ fontSize: "0.78rem", color: "#5A6478" }}>
+                  <div style={{ fontSize: "0.76rem", color: "#8A8579" }}>{c.email}</div>
+                  <div style={{ fontSize: "0.78rem", color: "#5A6478", marginTop: "0.1rem" }}>
                     {poste ? `Poste visé : ${poste}` : "Candidature non soumise"}
                   </div>
                   <div style={{ fontSize: "0.7rem", color: "#8A8579", marginTop: "0.15rem" }}>

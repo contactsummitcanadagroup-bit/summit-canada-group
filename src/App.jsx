@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "./supabaseClient";
-import { Mountain, CheckCircle2, Circle, Clock, MessageCircle, Building2, Send, X, Plane, Loader2, Check, CheckCheck } from "lucide-react";
+import { Mountain, CheckCircle2, Circle, Clock, MessageCircle, Building2, Send, X, Plane, Loader2, Check, CheckCheck, Download } from "lucide-react";
 import CandidatureForm from "./CandidatureForm";
 
 // ---------------------------------------------------------------------------
@@ -621,6 +621,32 @@ export function Dashboard({ session, onLogout }) {
                       <div style={{ fontSize: "0.78rem", color: "#5A6478" }}>{employeur.domaine}</div>
                     </div>
                   </div>
+                )}
+
+                {step.nom === "Recherche d'Employeur" && step.statut === "Validé" && employeur?.doc_url && (
+                  <a
+                    href={employeur.doc_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      marginTop: "0.5rem",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "0.5rem",
+                      background: "#F7F5EF",
+                      border: "1px solid #E4E0D6",
+                      color: "#0B1F3F",
+                      borderRadius: 9,
+                      padding: "0.6rem 1rem",
+                      fontSize: "0.82rem",
+                      fontWeight: 600,
+                      textDecoration: "none",
+                    }}
+                  >
+                    <Download size={15} />
+                    Télécharger la fiche employeur
+                  </a>
                 )}
 
                 {(step.nom === "Frais de dossier" || step.nom === "Frais d'accompagnement") && step.statut === "En cours" && (
