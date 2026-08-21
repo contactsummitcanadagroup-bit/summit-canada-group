@@ -656,7 +656,7 @@ export function Dashboard({ session, onLogout }) {
                     </div>
                     <p style={{ fontSize: "0.8rem", color: "#5A6478", lineHeight: 1.5, marginBottom: "0.6rem" }}>
                       {step.nom === "Frais de dossier"
-                        ? "Ce montant couvre la préparation et l'étude de votre dossier auprès de l'employeur, la première étape concrète vers votre nouvel emploi au Canada."
+                        ? "Ce montant couvre la préparation et l'étude de votre dossier auprès de l'employeur, ainsi que la mise en place de votre contrat de travail, la première étape concrète vers votre nouvel emploi au Canada."
                         : "Ce montant couvre tout l'accompagnement jusqu'à votre arrivée au Canada : contrat, visa, permis de travail et organisation du voyage. Vous n'êtes jamais seul dans ce parcours."}
                     </p>
                     <a
