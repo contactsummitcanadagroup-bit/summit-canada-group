@@ -66,7 +66,7 @@ const CRITERES = [
 const FAQ = [
   {
     q: "Est-ce qu'il y a des frais cachés ?",
-    r: "Vous ne payez rien tant que nous n'avons pas trouvé un employeur prêt à couvrir vos frais de voyage. Une fois l'employeur trouvé, le coût total est de 75 000 FCFA, réparti entre les frais de dossier et l'accompagnement, communiqué avant toute démarche. Le billet d'avion est pris en charge par votre employeur, le logement selon les employeurs.",
+    r: "Vous ne payez rien tant que nous n'avons pas trouvé un employeur prêt à couvrir vos frais de voyage. Une fois l'employeur trouvé, le coût total est de 26 000 FCFA, réparti entre les frais de dossier et l'accompagnement, communiqué avant toute démarche. Le billet d'avion est pris en charge par votre employeur, le logement selon les employeurs.",
   },
   {
     q: "Comment je sais que ce n'est pas une arnaque ?",
@@ -368,17 +368,17 @@ export default function AccueilPage() {
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem", marginBottom: "1.1rem" }}>
             <div style={{ fontSize: "0.86rem", color: "#C7D0E0", lineHeight: 1.55 }}>
-              💼 <strong style={{ color: "#F7F5EF" }}>Frais de dossier · 25 000 FCFA</strong> — couvre la
+              💼 <strong style={{ color: "#F7F5EF" }}>Frais de dossier · 10 500 FCFA</strong> — couvre la
               préparation et l'étude de votre dossier auprès de l'employeur, jusqu'à l'obtention de votre contrat de
               travail.
             </div>
             <div style={{ fontSize: "0.86rem", color: "#C7D0E0", lineHeight: 1.55 }}>
-              🛂 <strong style={{ color: "#F7F5EF" }}>Frais d'accompagnement · 50 000 FCFA</strong> — couvre le
+              🛂 <strong style={{ color: "#F7F5EF" }}>Frais d'accompagnement · 15 500 FCFA</strong> — couvre le
               reste du parcours : visa, permis de travail et organisation du voyage.
             </div>
           </div>
           <p style={{ color: "#9CA8C4", fontSize: "0.82rem", margin: 0, textAlign: "center" }}>
-            Soit 75 000 FCFA au total, jamais avant qu'un employeur ne soit confirmé pour vous.
+            Soit 26 000 FCFA au total, jamais avant qu'un employeur ne soit confirmé pour vous.
           </p>
         </div>
       </section>

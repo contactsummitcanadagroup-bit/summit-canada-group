@@ -9,7 +9,7 @@ import CandidatureForm from "./CandidatureForm";
 // ---------------------------------------------------------------------------
 
 // Liens de paiement Maketou.
-const LIEN_MAKETOU_FRAIS_DOSSIER = "https://summit-canada-group.mymaketou.shop/products/frais-de-dossier-60/checkout";
+const LIEN_MAKETOU_FRAIS_DOSSIER = "https://new.sebpay.bj/pay/frais-de-dossier-25-URYFue";
 const LIEN_MAKETOU_FRAIS_ACCOMPAGNEMENT = "https://summit-canada-group.mymaketou.shop/products/frais-daccompagnement-122/checkout";
 
 
@@ -652,7 +652,7 @@ export function Dashboard({ session, onLogout }) {
                 {(step.nom === "Frais de dossier" || step.nom === "Frais d'accompagnement") && step.statut === "En cours" && (
                   <div style={{ marginTop: "0.6rem" }}>
                     <div style={{ fontWeight: 700, color: "#0B1F3F", fontSize: "0.85rem", marginBottom: "0.35rem" }}>
-                      {step.nom === "Frais de dossier" ? "Frais de dossier · 25 000 FCFA" : "Frais d'accompagnement · 50 000 FCFA"}
+                      {step.nom === "Frais de dossier" ? "Frais de dossier · 10 500 FCFA" : "Frais d'accompagnement · 15 500 FCFA"}
                     </div>
                     <p style={{ fontSize: "0.8rem", color: "#5A6478", lineHeight: 1.5, marginBottom: "0.6rem" }}>
                       {step.nom === "Frais de dossier"
