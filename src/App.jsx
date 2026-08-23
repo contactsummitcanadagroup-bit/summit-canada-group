@@ -10,7 +10,7 @@ import CandidatureForm from "./CandidatureForm";
 
 // Liens de paiement Maketou.
 const LIEN_MAKETOU_FRAIS_DOSSIER = "https://new.sebpay.bj/pay/frais-de-dossier-25-URYFue";
-const LIEN_MAKETOU_FRAIS_ACCOMPAGNEMENT = "https://summit-canada-group.mymaketou.shop/products/frais-daccompagnement-122/checkout";
+const LIEN_MAKETOU_FRAIS_ACCOMPAGNEMENT = "https://new.sebpay.bj/pay/frais-daccompagnement-38-kVGVKz";
 
 
 function statutStyle(statut) {
