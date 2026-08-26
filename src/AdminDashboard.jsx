@@ -173,9 +173,11 @@ function genererFichePdf(data) {
     doc.text(text, x, yy);
   };
   const field = (x, yy, w, value, h = 7) => {
-    doc.setDrawColor("#C9C2AE");
     doc.setFillColor("#FBFAF6");
-    doc.rect(x, yy, w, h, "FD");
+    doc.rect(x, yy, w, h, "F");
+    doc.setDrawColor("#C9C2AE");
+    doc.setLineWidth(0.3);
+    doc.line(x, yy + h, x + w, yy + h);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.setTextColor(NAVY);
@@ -258,6 +260,7 @@ function genererFichePdf(data) {
   doc.text("Logement pris en charge", left, y);
   doc.setDrawColor("#C9C2AE");
   doc.setFillColor("#FBFAF6");
+  doc.setLineWidth(0.3);
   doc.rect(left + 44, y - 3.3, 4.5, 4.5, "FD");
   doc.rect(left + 62, y - 3.3, 4.5, 4.5, "FD");
   if (data.logementPrisEnCharge) {
