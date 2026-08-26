@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "./supabaseClient";
-import { Mountain, Loader2, CheckCircle2, LogOut, Users, Building2, Upload, MessageCircle, Send, Star, Check, CheckCheck } from "lucide-react";
+import { jsPDF } from "jspdf";
+import { Mountain, Loader2, CheckCircle2, LogOut, Users, Building2, Upload, MessageCircle, Send, Star, Check, CheckCheck, FileText } from "lucide-react";
 
 const ADMIN_EMAIL = "contact.summitcanadagroup@gmail.com";
 
@@ -126,12 +127,198 @@ function AccesRefuse({ onLogout }) {
   );
 }
 
+function genererFichePdf(data) {
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
+  const NAVY = "#0B1F3F";
+  const GOLD = "#C9A961";
+  const TEXT_GRAY = "#3A4356";
+  const LIGHT_GRAY = "#8A8579";
+  const left = 20;
+  const right = 190;
+  const colW = (right - left - 6) / 2;
+  const col2 = left + colW + 6;
+  let y;
+
+  // Header
+  doc.setFillColor(NAVY);
+  doc.rect(0, 0, 210, 32, "F");
+  doc.setDrawColor(GOLD);
+  doc.setLineWidth(1);
+  doc.line(20, 18, 24, 8);
+  doc.line(24, 8, 28, 18);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(15);
+  doc.setTextColor("#F7F5EF");
+  doc.text("SUMMIT", 32, 15);
+  doc.setTextColor(GOLD);
+  doc.text("CANADA GROUP", 32 + doc.getTextWidth("SUMMIT "), 15);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.setTextColor("#C7D0E0");
+  doc.text("Construisons votre avenir au Canada", 32, 20);
+
+  const sectionTitle = (title, yy) => {
+    doc.setTextColor(GOLD);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(7.5);
+    doc.text(title.toUpperCase(), left, yy);
+    doc.setDrawColor(GOLD);
+    doc.setLineWidth(0.4);
+    doc.line(left, yy + 1.2, right, yy + 1.2);
+  };
+  const label = (text, x, yy) => {
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8.5);
+    doc.setTextColor(TEXT_GRAY);
+    doc.text(text, x, yy);
+  };
+  const field = (x, yy, w, value, h = 7) => {
+    doc.setDrawColor("#C9C2AE");
+    doc.setFillColor("#FBFAF6");
+    doc.rect(x, yy, w, h, "FD");
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(NAVY);
+    doc.text(String(value || ""), x + 2.5, yy + h / 2 + 1.2);
+  };
+
+  y = 42;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(13);
+  doc.setTextColor(NAVY);
+  doc.text("Fiche de présentation employeur", left, y);
+
+  y += 6;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(TEXT_GRAY);
+  const intro = doc.splitTextToSize(
+    "Nous avons le plaisir de vous confirmer qu'un employeur canadien a été trouvé pour vous, prêt à financer votre voyage. Voici les informations essentielles sur votre futur employeur.",
+    right - left
+  );
+  doc.text(intro, left, y);
+  y += intro.length * 4.2 + 3;
+
+  label("Date d'émission", left, y);
+  field(left, y + 1.5, colW, new Date().toLocaleDateString("fr-FR"));
+
+  y += 13;
+  sectionTitle("Informations employeur", y);
+  y += 7;
+
+  label("Prénom de l'employeur / responsable", left, y);
+  field(left, y + 1.5, colW, data.prenom);
+  label("Nom de l'employeur / responsable", col2, y);
+  field(col2, y + 1.5, colW, data.nom);
+
+  y += 14;
+  label("Nom de l'entreprise", left, y);
+  field(left, y + 1.5, colW, data.entreprise);
+  label("Secteur d'activité", col2, y);
+  field(col2, y + 1.5, colW, data.secteur);
+
+  y += 14;
+  label("Ville", left, y);
+  field(left, y + 1.5, colW, data.ville);
+  label("Province (Canada)", col2, y);
+  field(col2, y + 1.5, colW, data.province);
+
+  y += 16;
+  sectionTitle("Détails du poste", y);
+  y += 7;
+
+  label("Intitulé du poste", left, y);
+  field(left, y + 1.5, colW, data.poste);
+  label("Salaire horaire (CAD)", col2, y);
+  field(col2, y + 1.5, colW, data.salaire);
+
+  y += 14;
+  label("Type de contrat", left, y);
+  field(left, y + 1.5, colW, data.typeContrat);
+  label("Durée estimée", col2, y);
+  field(col2, y + 1.5, colW, data.duree);
+
+  y += 14;
+  label("Horaires / temps plein ou partiel", left, y);
+  field(left, y + 1.5, colW, data.horaires);
+
+  y += 16;
+  sectionTitle("Prise en charge", y);
+  y += 7;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.setTextColor(NAVY);
+  doc.text("✓ Billet d'avion pris en charge par l'employeur", left, y);
+
+  y += 7;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8.5);
+  doc.setTextColor(TEXT_GRAY);
+  doc.text("Logement pris en charge", left, y);
+  doc.setDrawColor("#C9C2AE");
+  doc.setFillColor("#FBFAF6");
+  doc.rect(left + 44, y - 3.3, 4.5, 4.5, "FD");
+  doc.rect(left + 62, y - 3.3, 4.5, 4.5, "FD");
+  if (data.logementPrisEnCharge) {
+    doc.setDrawColor(NAVY);
+    doc.setLineWidth(0.6);
+    doc.line(left + 45, y - 1.4, left + 46, y - 0.3);
+    doc.line(left + 46, y - 0.3, left + 48, y - 3);
+  } else {
+    doc.setDrawColor(NAVY);
+    doc.setLineWidth(0.6);
+    doc.line(left + 63, y - 1.4, left + 64, y - 0.3);
+    doc.line(left + 64, y - 0.3, left + 66, y - 3);
+  }
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(TEXT_GRAY);
+  doc.text("Oui", left + 49, y);
+  doc.text("Non", left + 67, y);
+
+  y += 10;
+  label("Installation / autres avantages", left, y);
+  field(left, y + 1.5, right - left, data.autresAvantages, 8);
+
+  y += 20;
+  doc.setDrawColor("#EFEAD9");
+  doc.setLineWidth(0.4);
+  doc.line(left, y, right, y);
+
+  y += 5;
+  doc.setFont("helvetica", "italic");
+  doc.setFontSize(8);
+  doc.setTextColor(LIGHT_GRAY);
+  const footer = doc.splitTextToSize(
+    "Ce document confirme la mise en relation entre vous et votre futur employeur. Les prochaines étapes (contrat, visa, permis de travail) seront communiquées via votre espace personnel.",
+    right - left
+  );
+  doc.text(footer, left, y);
+  y += footer.length * 4 + 3;
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8.5);
+  doc.setTextColor(NAVY);
+  doc.text("L'équipe Summit Canada Group", left, y);
+
+  return doc.output("blob");
+}
+
 function EmployeurForm({ candidatId, onSaved, onCancel }) {
   const [nom, setNom] = useState("");
   const [prenom, setPrenom] = useState("");
-  const [domaine, setDomaine] = useState("");
+  const [entreprise, setEntreprise] = useState("");
+  const [secteur, setSecteur] = useState("");
+  const [ville, setVille] = useState("");
+  const [province, setProvince] = useState("");
+  const [poste, setPoste] = useState("");
+  const [salaire, setSalaire] = useState("");
+  const [typeContrat, setTypeContrat] = useState("");
+  const [duree, setDuree] = useState("");
+  const [horaires, setHoraires] = useState("");
+  const [logementPrisEnCharge, setLogementPrisEnCharge] = useState(false);
+  const [autresAvantages, setAutresAvantages] = useState("");
   const [photoFile, setPhotoFile] = useState(null);
-  const [docFile, setDocFile] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -153,22 +340,29 @@ function EmployeurForm({ candidatId, onSaved, onCancel }) {
       photo_url = publicUrlData.publicUrl;
     }
 
-    let doc_url = null;
-    if (docFile) {
-      const docPath = `employeurs-docs/${candidatId}-${Date.now()}-${docFile.name}`;
-      const { error: docUploadError } = await supabase.storage.from("photos").upload(docPath, docFile);
-      if (docUploadError) {
-        setError("Erreur lors de l'upload du document.");
-        setSaving(false);
-        return;
-      }
-      const { data: docUrlData } = supabase.storage.from("photos").getPublicUrl(docPath);
-      doc_url = docUrlData.publicUrl;
+    // Génération automatique du PDF à partir des données saisies.
+    const pdfBlob = genererFichePdf({
+      nom, prenom, entreprise, secteur, ville, province, poste, salaire, typeContrat, duree, horaires,
+      logementPrisEnCharge, autresAvantages,
+    });
+    const docPath = `employeurs-docs/${candidatId}-${Date.now()}-fiche-employeur.pdf`;
+    const { error: docUploadError } = await supabase.storage.from("photos").upload(docPath, pdfBlob, {
+      contentType: "application/pdf",
+    });
+    if (docUploadError) {
+      setError("Erreur lors de la génération du document.");
+      setSaving(false);
+      return;
     }
+    const { data: docUrlData } = supabase.storage.from("photos").getPublicUrl(docPath);
+    const doc_url = docUrlData.publicUrl;
 
-    const { error: insertError } = await supabase
-      .from("employeurs")
-      .insert({ candidat_id: candidatId, nom, prenom, domaine, photo_url, doc_url });
+    const { error: insertError } = await supabase.from("employeurs").insert({
+      candidat_id: candidatId,
+      nom, prenom, domaine: secteur, entreprise, secteur, ville, province, poste, salaire,
+      type_contrat: typeContrat, duree, horaires, logement_pris_en_charge: logementPrisEnCharge,
+      autres_avantages: autresAvantages, photo_url, doc_url,
+    });
 
     setSaving(false);
     if (insertError) {
@@ -177,6 +371,8 @@ function EmployeurForm({ candidatId, onSaved, onCancel }) {
     }
     onSaved();
   }
+
+  const inputStyle = { border: "1px solid #E4E0D6", borderRadius: 8, padding: "0.55rem 0.75rem", fontSize: "0.85rem" };
 
   return (
     <form
@@ -193,38 +389,59 @@ function EmployeurForm({ candidatId, onSaved, onCancel }) {
         width: "100%",
       }}
     >
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.6rem" }}>
-        <input
-          placeholder="Prénom de l'employeur"
-          value={prenom}
-          onChange={(e) => setPrenom(e.target.value)}
-          required
-          style={{ border: "1px solid #E4E0D6", borderRadius: 8, padding: "0.55rem 0.75rem", fontSize: "0.85rem" }}
-        />
-        <input
-          placeholder="Nom de l'employeur"
-          value={nom}
-          onChange={(e) => setNom(e.target.value)}
-          required
-          style={{ border: "1px solid #E4E0D6", borderRadius: 8, padding: "0.55rem 0.75rem", fontSize: "0.85rem" }}
-        />
+      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#8A6D2F", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+        Informations employeur
       </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.6rem" }}>
+        <input placeholder="Prénom de l'employeur" value={prenom} onChange={(e) => setPrenom(e.target.value)} required style={inputStyle} />
+        <input placeholder="Nom de l'employeur" value={nom} onChange={(e) => setNom(e.target.value)} required style={inputStyle} />
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.6rem" }}>
+        <input placeholder="Nom de l'entreprise" value={entreprise} onChange={(e) => setEntreprise(e.target.value)} required style={inputStyle} />
+        <input placeholder="Secteur d'activité" value={secteur} onChange={(e) => setSecteur(e.target.value)} required style={inputStyle} />
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.6rem" }}>
+        <input placeholder="Ville" value={ville} onChange={(e) => setVille(e.target.value)} required style={inputStyle} />
+        <input placeholder="Province (Canada)" value={province} onChange={(e) => setProvince(e.target.value)} required style={inputStyle} />
+      </div>
+
+      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#8A6D2F", textTransform: "uppercase", letterSpacing: "0.04em", marginTop: "0.4rem" }}>
+        Détails du poste
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.6rem" }}>
+        <input placeholder="Intitulé du poste" value={poste} onChange={(e) => setPoste(e.target.value)} required style={inputStyle} />
+        <input placeholder="Salaire horaire (CAD)" value={salaire} onChange={(e) => setSalaire(e.target.value)} required style={inputStyle} />
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.6rem" }}>
+        <input placeholder="Type de contrat" value={typeContrat} onChange={(e) => setTypeContrat(e.target.value)} required style={inputStyle} />
+        <input placeholder="Durée estimée" value={duree} onChange={(e) => setDuree(e.target.value)} required style={inputStyle} />
+      </div>
+      <input placeholder="Horaires / temps plein ou partiel" value={horaires} onChange={(e) => setHoraires(e.target.value)} required style={inputStyle} />
+
+      <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#8A6D2F", textTransform: "uppercase", letterSpacing: "0.04em", marginTop: "0.4rem" }}>
+        Prise en charge
+      </div>
+      <label style={{ fontSize: "0.85rem", color: "#3A4356", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        <input type="checkbox" checked={logementPrisEnCharge} onChange={(e) => setLogementPrisEnCharge(e.target.checked)} />
+        Logement pris en charge par l'employeur
+      </label>
       <input
-        placeholder="Domaine (ex : Logistique & Entreposage)"
-        value={domaine}
-        onChange={(e) => setDomaine(e.target.value)}
-        required
-        style={{ border: "1px solid #E4E0D6", borderRadius: 8, padding: "0.55rem 0.75rem", fontSize: "0.85rem" }}
+        placeholder="Installation / autres avantages (optionnel)"
+        value={autresAvantages}
+        onChange={(e) => setAutresAvantages(e.target.value)}
+        style={inputStyle}
       />
-      <label style={{ fontSize: "0.78rem", color: "#5A6478", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+
+      <label style={{ fontSize: "0.78rem", color: "#5A6478", display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.3rem" }}>
         <Upload size={14} />
         <input type="file" accept="image/*" onChange={(e) => setPhotoFile(e.target.files?.[0] || null)} style={{ fontSize: "0.78rem" }} />
+        <span style={{ fontSize: "0.72rem", color: "#8A8579" }}>Photo de l'employeur</span>
       </label>
-      <label style={{ fontSize: "0.78rem", color: "#5A6478", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-        <Upload size={14} />
-        <input type="file" accept="application/pdf" onChange={(e) => setDocFile(e.target.files?.[0] || null)} style={{ fontSize: "0.78rem" }} />
-        <span style={{ fontSize: "0.72rem", color: "#8A8579" }}>Document employeur (PDF, optionnel)</span>
-      </label>
+
+      <div style={{ fontSize: "0.72rem", color: "#8A8579", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+        <FileText size={13} />
+        La fiche PDF sera générée automatiquement à partir de ces informations.
+      </div>
 
       {error && <div style={{ color: "#C41E3A", fontSize: "0.78rem" }}>{error}</div>}
 
@@ -243,7 +460,7 @@ function EmployeurForm({ candidatId, onSaved, onCancel }) {
             cursor: saving ? "default" : "pointer",
           }}
         >
-          {saving ? "Enregistrement..." : "Enregistrer l'employeur"}
+          {saving ? "Génération du document..." : "Enregistrer et générer la fiche"}
         </button>
         <button
           type="button"
